@@ -26,7 +26,7 @@
             <div class="col-12 mt-5">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="header-title">Data Table Default</h4>
+                        <h4 class="header-title">Role List</h4>
                         <div class="data-tables">
                             <table id="dataTable" class="text-center">
                                 <thead class="bg-light text-capitalize">

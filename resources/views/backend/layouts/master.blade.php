@@ -42,6 +42,7 @@
     <!-- offset area end -->
     <!-- jquery latest version -->
     @include('backend.layouts.partials.script')
+    @yield('script')
 </body>
 
 </html>
