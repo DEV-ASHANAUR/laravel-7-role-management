@@ -52,7 +52,11 @@ class RolesController extends Controller
         if(!empty($permissions)){
             $role->syncPermissions($permissions);
         }
-        return redirect()->back();
+        $notification=array(
+            'message'=>'Successfully Save Role',
+            'alert-type'=>'success'
+        );
+        return redirect()->route('admin.roles.index')->with($notification);
     }
 
     /**
@@ -90,17 +94,23 @@ class RolesController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|max:100'
+            'name' => 'required|max:100|unique:roles,name,' . $id
         ],[
             'name.required' => 'Please Give a Role Name'
         ]);
         $role = Role::findById($id);
+        $role->name = $request->name;
         $permissions = $request->input('permissions');
 
         if(!empty($permissions)){
             $role->syncPermissions($permissions);
         }
-        return redirect()->back();
+        $role->save();
+        $notification=array(
+            'message'=>'Successfully Update Role',
+            'alert-type'=>'success'
+        );
+        return redirect()->route('admin.roles.index')->with($notification);
     }
 
     /**
@@ -111,6 +121,15 @@ class RolesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $role = Role::findById($id);
+        if (!is_null($role)) {
+            $role->delete();
+        }
+
+        $notification=array(
+            'message'=>'Successfully Delete Role',
+            'alert-type'=>'success'
+        );
+        return redirect()->route('admin.roles.index')->with($notification);
     }
 }

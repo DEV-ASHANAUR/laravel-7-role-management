@@ -22,6 +22,8 @@
     zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
     ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "ee6b7db5b51705a13dc2339db3edaf6d"];
     </script>
+    {{-- toastr js --}}
+    <script src="{{ asset('backend') }}/alert/toastr.min.js"></script>
     <!-- all line chart activation -->
     <script src="{{ asset('backend') }}/assets/js/line-chart.js"></script>
     <!-- all pie chart -->
@@ -29,3 +31,23 @@
     <!-- others plugins -->
     <script src="{{ asset('backend') }}/assets/js/plugins.js"></script>
     <script src="{{ asset('backend') }}/assets/js/scripts.js"></script>
+
+    <script>
+        @if(Session::has('message'))
+          var type="{{Session::get('alert-type','info')}}"
+          switch(type){
+            case 'info':
+                  toastr.info("{{ Session::get('message') }}");
+                  break;
+            case 'success':
+                  toastr.success("{{ Session::get('message') }}");
+                  break;
+            case 'warning':
+                  toastr.warning("{{ Session::get('message') }}");
+                  break;
+            case 'error':
+                  toastr.error("{{ Session::get('message') }}");
+                  break;
+          }
+        @endif  
+      </script>

@@ -2,6 +2,12 @@
 @section('title')
     Dashboard Page - Admin Panel
 @endsection
+@section('dashboard')
+    in
+@endsection
+@section('dash-page')
+    active
+@endsection
 @section('main-content')
     <!-- page title area start -->
     <div class="page-title-area">

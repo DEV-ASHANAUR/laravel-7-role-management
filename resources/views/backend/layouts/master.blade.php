@@ -7,6 +7,8 @@
     <title>@yield('title','laravel Role Admin')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     @include('backend.layouts.partials.style')
+    <script src="{{ asset('backend') }}/sweetalert/sweetalert.js"></script>
+    <link rel="stylesheet" href="{{ asset('backend') }}/sweetalert/sweetalert.css">
     @yield('style')
 </head>
 

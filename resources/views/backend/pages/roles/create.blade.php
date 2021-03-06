@@ -2,6 +2,12 @@
 @section('title')
     Role Create - Admin Panel
 @endsection
+@section('role')
+    in
+@endsection
+@section('create-role')
+    active
+@endsection
 @section('style')
     <style>
         .form-check-label {
@@ -37,7 +43,7 @@
                         <h4 class="header-title">Create New Role</h4>
                         @include('backend.layouts.partials.message')
                         <form action="{{ route('admin.roles.store') }}" method="POST">
-                            @csrf
+                            @csrf 
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Role Name</label>
                                 <input type="text" class="form-control" name="name" id="role" aria-describedby="emailHelp" placeholder="Enter Role Name" required>

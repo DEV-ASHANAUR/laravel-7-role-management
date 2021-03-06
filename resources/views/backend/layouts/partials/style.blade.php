@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="{{ asset('backend') }}/assets/css/metisMenu.css">
     <link rel="stylesheet" href="{{ asset('backend') }}/assets/css/owl.carousel.min.css">
     <link rel="stylesheet" href="{{ asset('backend') }}/assets/css/slicknav.min.css">
+    {{-- toastr css --}}
+    <link href="{{ asset('backend') }}/alert/toastr.css" rel="stylesheet">
     <!-- amchart css -->
     <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
     <!-- Start datatable css -->

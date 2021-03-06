@@ -5,6 +5,8 @@
         }else{
             $('input[type=checkbox]').prop('checked', false);
         }
+        // console.log('checked',$(".form-check [type='checkbox']:checked").length);
+        // implementAllChecked();
     });
     function checkPermissionByGroupName(className,checkThis){
         const groupIdName = $("#"+checkThis.id);
@@ -15,7 +17,7 @@
         }else{
             classCheckBox.prop('checked', false);
         }
-        implementAllChecked()
+        implementAllChecked();
     }
     function checkSinglePermission(groupClassName,groupId,countPermission){
         const classCheckbox = $("."+groupClassName+' input');
@@ -25,17 +27,19 @@
         }else{
             groupIdBox.prop('checked',false);
         }
-        implementAllChecked()
+        implementAllChecked();
     }
     function implementAllChecked(){
         const countPermissions = {{ count($all_permission) }};
         const countPermissionGroup = {{ count($permission_group) }};
-        console.log(countPermissions + countPermissionGroup);
-        console.log($('input[type="checkbox"]:checked').length);
-        if($('input[type="checkbox"]:checked').length >= (countPermissions + countPermissionGroup)){
+        // console.log('count',countPermissions + countPermissionGroup);
+        // console.log('checked',$(".form-check [type='checkbox']:checked").length);
+        if($(".form-check [type='checkbox']:checked").length >= (countPermissions + countPermissionGroup)){
             $("#checkpermissionAll").prop('checked',true);
         }else{
             $("#checkpermissionAll").prop('checked',false);
         }
+
+        
     }
 </script>

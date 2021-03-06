@@ -2,6 +2,13 @@
 @section('title')
     Role Page - Admin Panel
 @endsection
+
+@section('role')
+    in
+@endsection
+@section('all-role')
+    active
+@endsection
 @section('main-content')
     <!-- page title area start -->
     <div class="page-title-area">
@@ -30,25 +37,39 @@
                         <p class="float-right mb-3">
                             <a class="btn btn-sm btn-success" href="{{ route('admin.roles.create') }}">Add New</a>
                         </p>
-                        <div class="clear-fix"></div>
+                        <div class="clearfix"></div>
                         <div class="data-tables">
                             <table id="dataTable" class="text-center">
                                 <thead class="bg-light text-capitalize">
                                     <tr>
-                                        <th>SL No</th>
-                                        <th>Name</th>
-                                        <th>Action</th>
+                                        <th width="5%">SL No</th>
+                                        <th width="10%">Name</th>
+                                        <th width="60%">Permissions</th>
+                                        <th width="20%">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($roles as $key => $role)
                                     <tr>
                                         <td>{{ $key+1 }}</td>
-                                        <td>{{ $role->name }}</td>
+                                        <td class="text-uppercase">{{ $role->name }}</td>
                                         <td>
-                                            <a href="{{ route('admin.roles.edit',$role->id) }}" class="btn btn-sm btn-success" title="Edit"><i class="fa fa-edit"></i></a>
+                                            @foreach ($role->permissions as $item)
+                                                <span class="badge badge-info mr-1">
+                                                    {{ $item->name }}
+                                                </span>
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('admin.roles.edit',$role->id) }}" class="btn btn-sm btn-success mb-2" title="Edit"><i class="fa fa-edit"></i></a>
 
-                                            <a href="{{ route('admin.roles.destroy',$role->id) }}" class="btn btn-sm btn-danger"><i class="fa fa-trash" title="Delete"></i></a>
+                                            <form action="{{ route('admin.roles.destroy',$role->id) }}" method="POST" >
+                                            @csrf
+                                            @method('DELETE')
+                                    
+                                             <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are You Sure, You Want To Delete?')"><i class="fa fa-trash"></i></button>
+                                             </form>
+                                               
                                         </td>
                                     </tr>
                                     @endforeach
@@ -60,4 +81,7 @@
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+
 @endsection
