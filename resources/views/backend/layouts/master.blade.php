@@ -7,6 +7,7 @@
     <title>@yield('title','laravel Role Admin')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     @include('backend.layouts.partials.style')
+    @yield('style')
 </head>
 
 <body>
