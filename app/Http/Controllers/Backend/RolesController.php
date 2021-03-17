@@ -46,7 +46,7 @@ class RolesController extends Controller
         ],[
             'name.required' => 'Please Give a Role Name'
         ]);
-        $role = Role::create(['name' => $request->name]);
+        $role = Role::create(['name' => $request->name,'guard_name' => 'admin']);
         $permissions = $request->input('permissions');
 
         if(!empty($permissions)){
@@ -78,7 +78,7 @@ class RolesController extends Controller
      */
     public function edit($id)
     {
-        $role = Role::findById($id);
+        $role = Role::findById($id, 'admin');
         $all_permission = Permission::all();
         $permission_group = User::getpermissiongroups();
         return view('backend.pages.roles.edit',compact('role','all_permission','permission_group'));
@@ -98,7 +98,7 @@ class RolesController extends Controller
         ],[
             'name.required' => 'Please Give a Role Name'
         ]);
-        $role = Role::findById($id);
+        $role = Role::findById($id, 'admin');
         $role->name = $request->name;
         $permissions = $request->input('permissions');
 
@@ -121,7 +121,7 @@ class RolesController extends Controller
      */
     public function destroy($id)
     {
-        $role = Role::findById($id);
+        $role = Role::findById($id, 'admin');
         if (!is_null($role)) {
             $role->delete();
         }

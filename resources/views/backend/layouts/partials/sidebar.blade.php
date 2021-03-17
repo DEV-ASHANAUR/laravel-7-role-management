@@ -30,11 +30,11 @@
                     {{-- users --}}
                     <li>
                         <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-user"></i><span>
-                                Users
+                                Admins
                             </span></a>
-                        <ul class="collapse @yield('user')">
-                            <li class="@yield('all-user')"><a href="{{ route('admin.users.index') }}">All User</a></li>
-                            <li class="@yield('create-user')"><a href="{{ route('admin.users.create') }}">Create User</a></li>
+                        <ul class="collapse @yield('admin')">
+                            <li class="@yield('all-admin')"><a href="{{ route('admin.admins.index') }}">All Admin</a></li>
+                            <li class="@yield('create-admin')"><a href="{{ route('admin.admins.create') }}">Create Admin</a></li>
                         </ul>
                     </li>
                     

@@ -1,6 +1,6 @@
 <?php
 
-use App\User;
+use App\Models\Admin;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -13,13 +13,16 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $user = User::where('email','ashanour009@gmail.com')->first();
-        if(is_null($user)){
-            $user = new User();
-            $user->name = 'Md Ashananur Rahman';
-            $user->email = 'ashanour009@gmail.com';
-            $user->password = Hash::make('12345678');
-            $user->save();
+        $admin = Admin::where('email','superadmin@gmail.com')->first();
+        if(is_null($admin)){
+            $admin = new Admin();
+            $admin->name = 'Supper Admin';
+            $admin->username = 'superadmin';
+            $admin->email = 'superadmin@gmail.com';
+            $admin->status = 1;
+            $admin->password = Hash::make('12345678');
+            $admin->assignRole('superadmin');
+            $admin->save();
         }
     }
 }
