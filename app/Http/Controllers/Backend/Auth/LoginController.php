@@ -36,6 +36,9 @@ class LoginController extends Controller
      * @return void
      */
     public function showLoginForm(){
+        // if(Auth::guard('admin')->check()){
+        //     return redirect()->route('admin.dashboard');
+        // }
         return view('backend.auth.login');
     }
     
@@ -74,5 +77,15 @@ class LoginController extends Controller
     public function logout(){
         Auth::guard('admin')->logout();
         return redirect()->route('admin.login');
+    }
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function guard()
+    {
+        return Auth::guard('admin');
     }
 }

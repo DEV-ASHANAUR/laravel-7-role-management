@@ -43,7 +43,7 @@
                             </div>
                         </div>
                         <div class="col-6 text-right">
-                            <a href="#">Forgot Password?</a>
+                            <a href="{{ route('admin.password.request') }}">Forgot Password?</a>
                         </div>
                     </div>
                     <div class="submit-btn-area">
