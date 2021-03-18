@@ -5,12 +5,22 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
 class AdminsController extends Controller
 {
+    public $user;
+
+    public function __construct()
+    {
+        $this->middleware(function($request,$next){
+            $this->user = Auth::guard('admin')->user();
+            return $next($request);
+        });
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,6 +28,9 @@ class AdminsController extends Controller
      */
     public function index()
     {
+        if(is_null($this->user) || !$this->user->can('admin.view')){
+            abort(403, 'Sorry !! You are Unauthorized to View any Admin !');
+        }
         $admins = Admin::all();
         return view('backend.pages.admins.index',compact('admins'));
     }
@@ -29,6 +42,9 @@ class AdminsController extends Controller
      */
     public function create()
     {
+        if(is_null($this->user) || !$this->user->can('admin.create')){
+            abort(403, 'Sorry !! You are Unauthorized to Create any Admin !');
+        }
         $roles = Role::all();
         return view('backend.pages.admins.create',compact('roles'));
     }
@@ -41,6 +57,9 @@ class AdminsController extends Controller
      */
     public function store(Request $request)
     {
+        if(is_null($this->user) || !$this->user->can('admin.create')){
+            abort(403, 'Sorry !! You are Unauthorized to Create any Admin !');
+        }
         $request->validate([
            'name' => 'required|max:100|min:3',
            'username' => 'required|max:10|min:3',
@@ -83,6 +102,9 @@ class AdminsController extends Controller
      */
     public function edit($id)
     {
+        if(is_null($this->user) || !$this->user->can('admin.edit')){
+            abort(403, 'Sorry !! You are Unauthorized to edit any Admin !');
+        }
         $admin = Admin::find($id);
         $roles = Role::all();
         return view('backend.pages.admins.edit',compact('admin','roles'));
@@ -98,6 +120,9 @@ class AdminsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if(is_null($this->user) || !$this->user->can('admin.edit')){
+            abort(403, 'Sorry !! You are Unauthorized to edit any Admin !');
+        }
         $admin = Admin::find($id);
         $request->validate([
             'name' => 'required|max:100|min:3',
@@ -132,6 +157,9 @@ class AdminsController extends Controller
      */
     public function destroy($id)
     {
+        if(is_null($this->user) || !$this->user->can('admin.delete')){
+            abort(403, 'Sorry !! You are Unauthorized to delete any Admin !');
+        }
         $admin = Admin::find($id);
         if(!is_null($admin)){
             $admin->delete();

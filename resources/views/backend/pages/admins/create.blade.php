@@ -43,7 +43,7 @@
                     <div class="card-body">
                         <h4 class="header-title">Create New User</h4>
                         @include('backend.layouts.partials.message')
-                        <form action="{{ route('admin.admins.store') }}" method="POST">
+                        <form action="{{ route('admin.admins.store') }}" method="POST" autocomplete="off">
                             @csrf 
                             <div class="form-row">
                                 <div class="form-group col-md-6 col-sm-12">

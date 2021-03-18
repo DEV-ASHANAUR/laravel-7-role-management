@@ -40,9 +40,11 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="header-title float-left">Role List</h4>
+                        @if (Auth::guard('admin')->user()->can('role.create'))
                         <p class="float-right mb-3">
                             <a class="btn btn-sm btn-success" href="{{ route('admin.roles.create') }}">Add New</a>
                         </p>
+                        @endif
                         <div class="clearfix"></div>
                         <div class="data-tables">
                             <table id="dataTable" class="text-center">
@@ -51,7 +53,9 @@
                                         <th width="5%">SL No</th>
                                         <th width="10%">Name</th>
                                         <th width="60%">Permissions</th>
+                                        @if (Auth::guard('admin')->user()->can('role.edit') || Auth::guard('admin')->user()->can('role.delete'))
                                         <th width="20%">Action</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -66,17 +70,23 @@
                                                 </span>
                                             @endforeach
                                         </td>
+                                        @if (Auth::guard('admin')->user()->can('role.edit') || Auth::guard('admin')->user()->can('role.delete'))
+                                            
                                         <td class="action">
-                                            <a href="{{ route('admin.roles.edit',$role->id) }}" class="btn btn-sm btn-success mb-2 mr-2" title="Edit"><i class="fa fa-edit"></i></a>
-
-                                            <form action="{{ route('admin.roles.destroy',$role->id) }}" method="POST" >
-                                            @csrf
-                                            @method('DELETE')
+                                            @if (Auth::guard('admin')->user()->can('role.edit'))
+                                                <a href="{{ route('admin.roles.edit',$role->id) }}" class="btn btn-sm btn-success mb-2 mr-2" title="Edit"><i class="fa fa-edit"></i></a>
+                                            @endif
+                                            
+                                            @if (Auth::guard('admin')->user()->can('role.delete'))
+                                                <form action="{{ route('admin.roles.destroy',$role->id) }}" method="POST" >
+                                                @csrf
+                                                @method('DELETE')
                                     
-                                             <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are You Sure, You Want To Delete?')"><i class="fa fa-trash"></i></button>
-                                             </form>
-                                               
+                                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are You Sure, You Want To Delete?')"><i class="fa fa-trash"></i></button>
+                                                </form>
+                                            @endif   
                                         </td>
+                                        @endif
                                     </tr>
                                     @endforeach
                                 </tbody>
