@@ -25,7 +25,7 @@
                     <h4 class="page-title pull-left">Create User</h4>
                     <ul class="breadcrumbs pull-left">
                         <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                        <li><a href="{{ route('admin.users.index') }}">All User</a></li>
+                        <li><a href="{{ route('admin.admins.index') }}">All Admins</a></li>
                         <li><span>User Create</span></li>
                     </ul>
                 </div>
