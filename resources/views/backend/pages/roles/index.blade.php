@@ -72,18 +72,16 @@
                                         </td>
                                         @if (Auth::guard('admin')->user()->can('role.edit') || Auth::guard('admin')->user()->can('role.delete'))
                                             
-                                        <td class="action">
+                                        <td>
                                             @if (Auth::guard('admin')->user()->can('role.edit'))
-                                                <a href="{{ route('admin.roles.edit',$role->id) }}" class="btn btn-sm btn-success mb-2 mr-2" title="Edit"><i class="fa fa-edit"></i></a>
+                                                <a href="{{ route('admin.roles.edit',$role->id) }}" class="btn btn-sm btn-success mr-2" title="Edit"><i class="fa fa-edit"></i></a>
                                             @endif
                                             
                                             @if (Auth::guard('admin')->user()->can('role.delete'))
-                                                <form action="{{ route('admin.roles.destroy',$role->id) }}" method="POST" >
-                                                @csrf
-                                                @method('DELETE')
-                                    
-                                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are You Sure, You Want To Delete?')"><i class="fa fa-trash"></i></button>
-                                                </form>
+                                            
+                                            <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete-{{ $role->id }}"><i class="fa fa-trash"></i>
+                                            </button>
+
                                             @endif   
                                         </td>
                                         @endif
@@ -94,6 +92,34 @@
                         </div>
                     </div>
                 </div>
+                {{-- --------modal start------------ --}}
+                @foreach ($roles as $key => $role)
+                <div class="modal fade bd-example-modal-sm" id="delete-{{ $role->id }}">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Delete Role</h5>
+                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>
+                                    Are You Sure ! Delete This Role?
+                                </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-flat" data-dismiss="modal">Cancle</button>
+                                <button type="button" class="btn btn-danger btn-flat" onclick="event.preventDefault();
+                                document.getElementById('deleteRole-{{$role->id}}').submit();">Delete</button>
+                                <form action="{{ route('admin.roles.destroy',$role->id) }}" style="display: none" id="deleteRole-{{$role->id}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+                {{-- --------modal end------------ --}}
             </div>
         </div>
     </div>

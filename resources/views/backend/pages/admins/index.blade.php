@@ -75,16 +75,14 @@
                                         @if (Auth::guard('admin')->user()->can('admin.edit') || Auth::guard('admin')->user()->can('admin.delete'))
                                         <td class="action">
                                             @if (Auth::guard('admin')->user()->can('admin.edit'))
-                                            <a href="{{ route('admin.admins.edit',$admin->id) }}" class="btn btn-sm btn-success mb-2 mr-2" title="Edit"><i class="fa fa-edit"></i></a>
+                                            <a href="{{ route('admin.admins.edit',$admin->id) }}" class="btn btn-sm btn-success mr-2" title="Edit"><i class="fa fa-edit"></i></a>
                                             @endif
 
                                             @if (Auth::guard('admin')->user()->can('admin.delete'))
-                                            <form action="{{ route('admin.admins.destroy',$admin->id) }}" method="POST" >
-                                            @csrf
-                                            @method('DELETE')
-                                    
-                                             <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are You Sure, You Want To Delete?')"><i class="fa fa-trash"></i></button>
-                                             </form>
+
+                                            <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete-{{ $admin->id }}"><i class="fa fa-trash"></i>
+                                            </button>
+
                                             @endif 
                                         </td>
                                         @endif
@@ -95,6 +93,34 @@
                         </div>
                     </div>
                 </div>
+                {{-- --------modal start------------ --}}
+                @foreach ($admins as $key => $admin)
+                <div class="modal fade bd-example-modal-sm" id="delete-{{ $admin->id }}">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Delete {{ $admin->name }}</h5>
+                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>
+                                    Are You Sure ! Delete This Admin?
+                                </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-flat" data-dismiss="modal">Cancle</button>
+                                <button type="button" class="btn btn-danger btn-flat" onclick="event.preventDefault();
+                                document.getElementById('deleteAdmin-{{$admin->id}}').submit();">Delete</button>
+                                <form action="{{ route('admin.admins.destroy',$admin->id) }}" style="display: none" id="deleteAdmin-{{$admin->id}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+                {{-- --------modal end------------ --}}
             </div>
         </div>
     </div>
